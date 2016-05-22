@@ -1,15 +1,15 @@
 <?php 
 /*
-Plugin Name: PP Social Wall
-Plugin URI:  http://pixelpudu.com/social-wall
-Description: A custom built social wall for LVY
-Version:     1.0
+Plugin Name: WP Social Wall Lite
+Plugin URI:  https://pixelpudu.com/downloads/wp-social-wall/
+Description: WP Social Wall Lite dispays your twitter, instagrama and facebook posts on your wesbsite in a random masonry grid.
+Version:     1.0.0
 Author:      Martin Greenwood
 Author URI:  http://pixelpudu.com/
 Domain Path: /languages
 Text Domain: pp-social-wall
 
-/ Copyright (c) 2015 Pixel Pudu. All rights reserved.
+// Copyright (c) 2015 Pixel Pudu. All rights reserved.
 //
 // Released under the GPL license
 // http://www.opensource.org/licenses/gpl-license.php
@@ -50,12 +50,22 @@ class PP_Social_Wall {
     private function __construct() {
         add_action( 'admin_menu', array( $this, 'pp_social_wall_add_plugin_page' ) );
         add_action( 'admin_init', array( $this, 'pp_social_wall_page_init' ) );
+
+        /*----------  load action links  ----------*/
+        add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'add_action_links' );
+        function add_action_links ( $links ) {
+            $mylinks = array(
+                '<a href="' . admin_url( 'options-general.php?page=pp-social-wall' ) . '">Settings</a>',
+            );
+            return array_merge( $links, $mylinks );
+        }
+
     }
 
     public function pp_social_wall_add_plugin_page() {
         add_options_page(
-            'PP Social Wall',	// page_title
-            'PP Social Wall',	// menu_title
+            'WP Social Wall',	// page_title
+            'WP Social Wall',	// menu_title
             'manage_options',	// capability
             'pp-social-wall',	// menu_slug
             array( $this, 'pp_social_wall_create_admin_page' ) // function
@@ -509,7 +519,7 @@ class PP_Social_Wall {
                             </div>
                         </div>
                         <?php endif; ?>
-                        <div class="icon"><a href="" target="_blank"><i class="fa fa-instagram"></i></a></div> 
+                        <div class="icon"><a href="<?php echo $post->link; ?>" target="_blank"><i class="fa fa-instagram"></i></a></div> 
 
                     </div>
                     <?php if ($counter++ == 2) break; ?>

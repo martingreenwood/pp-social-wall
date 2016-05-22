@@ -9,7 +9,7 @@ $this->pp_social_wall = get_option( 'pp_social_wall_option_name' ); ?>
 
 <div class="wrap">
 	
-	<h1><?php _e( 'PP Social Wall', 'pp-social-wall') ?></h1>
+	<h1><?php _e( 'WP Social Wall', 'pp-social-wall') ?></h1>
 	
 	<form action="options.php" method="post" id="pp-social-wall">
 	<?php settings_fields( 'pp_social_wall_option_group' ); ?>	
